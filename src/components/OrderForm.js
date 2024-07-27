@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid, Container, IconButton } from '@mui/material';
+import { TextField, Button, Grid, Container, IconButton, Slider , Typography, Input, Card} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'; // Import WhatsAppIcon
@@ -13,7 +13,7 @@ function OrderForm() {
 
   useEffect(() => {
     const url = window.location.href;
-    const artMatch = url.match(/\/art_(\d+)\//);
+    const artMatch = url.match(/\/#art_(\d+)/);
     if (artMatch && artMatch[1]) {
       setArt(artMatch[1]);
     }
@@ -39,7 +39,7 @@ function OrderForm() {
     fields.forEach((field, index) => {
       message += `Ширина: ${field.width}, Высота: ${field.height}, Штук: ${field.items},`;
     });
-    window.open(`https://api.whatsapp.com/send?phone=+79266503963&text=${encodeURIComponent(message)}`);
+    window.open(`https://api.whatsapp.com/send?phone=+00000000&text=${encodeURIComponent(message)}`);
   };
 
   return (
@@ -57,43 +57,102 @@ function OrderForm() {
         />
       </Grid>
       <Grid container spacing={2}>
-        {fields.map((field, index) => (
-          <Grid item xs={12} key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <TextField
-              required
-              name="width"
-              label="Ширина"
-              type="number"
-              value={field.width ? field.width : 3}
-              onChange={(e) => handleChange(index, e)}
-              style={{ marginRight: '10px' }}
-              inputProps={{ min: 1, step: 0.5 }}
-            />
-            <TextField
-              required
-              name="height"
-              label="Высота"
-              type="number"
-              value={field.height ? field.height : 2.7}
-              onChange={(e) => handleChange(index, e)}
-              style={{ marginRight: '10px' }}
-              inputProps={{ min: 1, step: 0.05 }}
-            />
-            <TextField
-              required
-              name="items"
-              label="Штук"
-              type="number"
-              value={field.items ? field.items : 1}
-              onChange={(e) => handleChange(index, e)}
-              style={{ marginRight: '10px' }}
-              inputProps={{ min: 1 }}
-            />
-            <IconButton variant="contained" color="secondary" onClick={() => removeFields(index)} disabled={index === 0}>
-              <DeleteIcon />
-            </IconButton>
-          </Grid>
-        ))}
+        
+        
+          {fields.map((field, index) => (
+            <Card sx={{ minWidth: 375, width: '100%', padding: '15px', marginLeft: '20px', marginTop: '15px' }} key={index}>
+            <React.Fragment>
+              <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Typography id={`width-slider-${index}`} gutterBottom style={{ width: '90px' }}>
+                  Ширина
+                </Typography>
+                <Slider
+                  required
+                  name="width"
+                  min={1}
+                  max={6}
+                  step={0.5}
+                  value={field.width ? field.width : 3}
+                  valueLabelDisplay="auto"
+                  onChange={(e, value) => handleChange(index, { target: { name: 'width', value: value } })}
+                  style={{ marginRight: '10px' }}
+                />
+                <Input
+                  value={field.width ? field.width : 3}
+                  size="small"
+                  onChange={(e) => handleChange(index, { target: { name: 'width', value: e.target.value } })}
+                  inputProps={{
+                    step: 0.5,
+                    min: 1,
+                    max: 6,
+                    type: 'number',
+                    'aria-labelledby': `width-slider-${index}`,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Typography id={`height-slider-${index}`} gutterBottom style={{ width: '90px' }}>
+                  Высота
+                </Typography>
+                <Slider
+                  required
+                  name="height"
+                  min={2}
+                  max={3}
+                  step={0.05}
+                  value={field.height ? field.height : 2.7}
+                  onChange={(e, value) => handleChange(index, { target: { name: 'height', value: value } })}
+                  style={{ marginRight: '10px' }}
+                  valueLabelDisplay="auto"
+                />
+                <Input
+                  value={field.height ? field.height : 2.7}
+                  size="small"
+                  onChange={(e) => handleChange(index, { target: { name: 'height', value: e.target.value } })}
+                  inputProps={{
+                    step: 0.05,
+                    min: 2,
+                    max: 3,
+                    type: 'number',
+                    'aria-labelledby': `height-slider-${index}`,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Typography id={`items-slider-${index}`} gutterBottom style={{ width: '90px' }}>
+                  Штук
+                </Typography>
+                <Slider
+                  required
+                  name="items"
+                  min={1}
+                  max={20}
+                  step={1}
+                  value={field.items ? field.items : 1}
+                  onChange={(e, value) => handleChange(index, { target: { name: 'items', value: value } })}
+                  style={{ marginRight: '10px' }}
+                  valueLabelDisplay="auto"
+                />
+                <Input
+                  value={field.items ? field.items : 1}
+                  size="small"
+                  onChange={(e) => handleChange(index, { target: { name: 'items', value: e.target.value } })}
+                  inputProps={{
+                    step: 1,
+                    min: 1,
+                    max: 20,
+                    type: 'number',
+                    'aria-labelledby': `items-slider-${index}`,
+                  }}
+                />
+              </Grid>
+              <IconButton variant="contained" color="secondary" onClick={() => removeFields(index)} disabled={index === 0}>
+                <DeleteIcon />
+              </IconButton>
+            </React.Fragment>
+            </Card>
+          ))}
+        
         <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained" color="secondary" onClick={addFields} style={{ marginTop: '10px', padding: '2.5px' }}>
             <AddIcon style={{ fontSize: 'smaller' }} />
