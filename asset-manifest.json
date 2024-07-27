@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nikinsstore/static/css/main.e6c13ad2.css",
-    "main.js": "/nikinsstore/static/js/main.f8a47829.js",
+    "main.js": "/nikinsstore/static/js/main.40f9a555.js",
     "static/js/453.c74f15c5.chunk.js": "/nikinsstore/static/js/453.c74f15c5.chunk.js",
     "index.html": "/nikinsstore/index.html",
     "main.e6c13ad2.css.map": "/nikinsstore/static/css/main.e6c13ad2.css.map",
-    "main.f8a47829.js.map": "/nikinsstore/static/js/main.f8a47829.js.map",
+    "main.40f9a555.js.map": "/nikinsstore/static/js/main.40f9a555.js.map",
     "453.c74f15c5.chunk.js.map": "/nikinsstore/static/js/453.c74f15c5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.f8a47829.js"
+    "static/js/main.40f9a555.js"
   ]
 }
